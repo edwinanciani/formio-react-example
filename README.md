@@ -1,3 +1,9 @@
+# Formio + React Example App.
+
+This project is an example application to render Formio Forms in a React application.
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -1,24 +1,57 @@
-import logo from './logo.svg';
+import { Form } from '@formio/react';
+import { useState } from 'react';
 import './App.css';
-
 function App() {
+  const [result, setResult] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
+  const form = {
+    title: 'My Example Form',
+    display: 'form',
+    components: [
+      {
+        label: 'Name',
+        key: 'name',
+        type: 'textfield'
+      },
+      {
+        label: 'Email',
+        key: 'email',
+        type: 'email'
+      },
+      {
+        label: 'Send Information',
+        key: 'submit',
+        type: 'button',
+        action: 'submit'
+      }
+    ]
+  }
+
+  const onSubmitHandler = (submission) => {
+    setResult(submission);
+    setSubmitted(true);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <h2>{form.title}</h2>
+      {
+        !submitted ?
+          <>
+          <Form form={form} onSubmit={onSubmitHandler} /> 
+          </>
+        :
+        <>
+          <div className="card">
+            <div className="card-body">
+              <h4 className="bg-success text-white">Thank you!</h4>
+              <h5>{result?.data.name}</h5>
+              <h5>{result?.data.email}</h5>
+            </div>
+          </div>
+        </>
+      }
+   </div>
   );
 }
 
